@@ -3,12 +3,13 @@
   "version": "0.0.1",
   "description": "Tool for convert gpx into kml",
   "main": "index.js",
-  "scripts": {
-    "start": "parcel index.html",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "author": "Roman Bauer",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/romasan/gpx2kml.git"
+  },
+  "homepage": "https://github.com/romasan/gpx2kml#readme",
   "browserslist": [
     "since 2020-12"
   ],
