@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const gpxParser = require('gpxparser');
 const tokml = require('tokml');
 
