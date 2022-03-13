@@ -4,8 +4,19 @@ const tokml = require('tokml');
 function convert (gpxtext) {
     const gpx = new gpxParser();
     gpx.parse(gpxtext);
-    let geoJSON = gpx.toGeoJSON();
-    return tokml(geoJSON);
+    const geoJSON = gpx.toGeoJSON();
+    let xml = tokml(geoJSON);
+    xml = xml.replace(/\[object Object\]/ig, '');
+    const format = require('xml-formatter');
+    return format(xml, { indentation: ' ' });
+}
+
+function write (text, file) {
+    if (file) {
+        eval('require')('fs').writeFileSync(file, text)
+    } else {
+        process.stdout.write(text);
+    }
 }
 
 if ((typeof process !== 'undefined') && (process.release && process.release.name === 'node')) {
@@ -13,15 +24,20 @@ if ((typeof process !== 'undefined') && (process.release && process.release.name
     const hideBin = require('yargs/helpers').hideBin
     const argv = yargs(hideBin(process.argv)).argv;
     const file = argv._ && argv._[0];
-
-    if (file && eval('require')('fs').existsSync(file)) {
+    const multiple = argv._.length > 1;
+    if (multiple) {
+        for (const file of argv._) {
+            if (file && eval('require')('fs').existsSync(file)) {
+                const outputName = file.replace(/.gpx$/, '') + '.kml';
+                const text = eval('require')('fs').readFileSync(file, { encoding: 'utf-8'});
+                const output = convert(text);
+                write(output, outputName);
+            }
+        }
+    } else if (file && eval('require')('fs').existsSync(file)) {
         const text = eval('require')('fs').readFileSync(file, { encoding: 'utf-8'});
         const output = convert(text);
-        if (argv.o) {
-            eval('require')('fs').writeFileSync(argv.o, output)
-        } else {
-            process.stdout.write(output);
-        }
+        write(output, argv.o);
     } else {
         const proc = process.stdin.on('readable', () => {
             let text = '';
@@ -31,11 +47,7 @@ if ((typeof process !== 'undefined') && (process.release && process.release.name
             }
             if (text) {
                 const output = convert(text);
-                if (argv.o) {
-                    eval('require')('fs').writeFileSync(argv.o, output)
-                } else {
-                    process.stdout.write(output);
-                }
+                write(output, argv.o);
                 process.exit(proc.fd);
             }
         });

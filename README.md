@@ -14,6 +14,11 @@ or
 $ cat my_first_track.gpx | gpx2kml > output.kml
 ```
 
+Batch conversion
+```
+$ gpx2kml *.gpx
+```
+
 ### Use as package
 ```
 import gpx2kml from 'gpx2kml';
