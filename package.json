@@ -13,11 +13,6 @@
   "engines": {
     "node": ">=0.10"
   },
-  "os": [
-    "linux",
-    "freebsd",
-    "darwin"
-  ],
   "license": "ISC",
   "repository": {
     "type": "git",
