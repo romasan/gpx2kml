@@ -1,0 +1,42 @@
+name: Publish package
+
+on:
+  push:
+    branches-ignore:
+      - 'dependabot/**'
+
+concurrency:
+  group: ${{ github.ref }}
+
+jobs:
+  publish_package:
+    name: Publish package
+
+    if: github.ref == 'refs/heads/main'
+
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      packages: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14.x'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Automated Version Bump
+        id: version-bump
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: phips28/gh-action-bump-version@master
+
+      - name: Publish package on NPM
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
