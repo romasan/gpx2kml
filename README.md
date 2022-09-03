@@ -9,6 +9,10 @@ $ npm i -g gpx2kml
 ```
 $ gpx2kml my_first_track.gpx -o output.kml
 ```
+or
+```
+$ cat my_first_track.gpx | gpx2kml > output.kml
+```
 
 Batch conversion
 ```

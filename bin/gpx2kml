@@ -18,8 +18,24 @@ if ((typeof process !== 'undefined') && (process.release && process.release.name
     console.log(package.version)
     return
   }
+
+  if (!process.stdin.isTTY) {
+    let data = ''
+    process.stdin.on('readable', function() {
+        const chunk = this.read();
+        if (chunk !== null) {
+          data += chunk;
+        }
+    });
+    process.stdin.on('end', function() {
+      const output = convert(data.trim())
+      write(output, argv.o)
+    });
+  }
+
   const file = argv._ && argv._[0]
   const multiple = argv._.length > 1
+
   if (multiple) {
     for (const file of argv._) {
       if (file && eval('require')('fs').existsSync(file)) {
@@ -31,7 +47,7 @@ if ((typeof process !== 'undefined') && (process.release && process.release.name
     }
   } else if (file && eval('require')('fs').existsSync(file)) {
     const text = eval('require')('fs').readFileSync(file, { encoding: 'utf-8' })
-    const output = convert(text)  
+    const output = convert(text)
     write(output, argv.o)
   } else {
     const proc = process.stdin.on('readable', () => {
