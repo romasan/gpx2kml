@@ -1,9 +1,19 @@
 {
   "name": "gpx2kml",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Tool for convert gpx into kml",
-  "main": "index.js",
-  "author": "Roman Bauer",
+  "author": "Roman Bauer <rom@nbauer.ru>",
+  "main": "./index.js",
+  "directories": {
+    "bin": "./bin"
+  },
+  "bin": {
+    "gpx2kml": "./bin/gpx2kml"
+  },
+  "engines": {
+    "node": ">=0.10"
+  },
+  "os": ["linux", "freebsd", "darwin"],
   "license": "ISC",
   "repository": {
     "type": "git",
@@ -14,9 +24,6 @@
     "gpx",
     "kml"
   ],
-  "bin": {
-    "gpx2kml": "./index.js"
-  },
   "dependencies": {
     "gpxparser": "^3.0.8",
     "tokml": "^0.4.0",
