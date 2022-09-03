@@ -1,6 +1,6 @@
 {
   "name": "gpx2kml",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Tool for convert gpx into kml",
   "author": "Roman Bauer <rom@nbauer.ru>",
   "main": "./index.js",
@@ -13,7 +13,11 @@
   "engines": {
     "node": ">=0.10"
   },
-  "os": ["linux", "freebsd", "darwin"],
+  "os": [
+    "linux",
+    "freebsd",
+    "darwin"
+  ],
   "license": "ISC",
   "repository": {
     "type": "git",
