@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 const convert = require('../src/index.js')
+const package = require('../package.json')
 
 function write(text, file) {
   if (file) {
@@ -13,6 +14,10 @@ if ((typeof process !== 'undefined') && (process.release && process.release.name
   const yargs = require('yargs/yargs')
   const hideBin = require('yargs/helpers').hideBin
   const argv = yargs(hideBin(process.argv)).argv
+  if (argv.v) {
+    console.log(package.version)
+    return
+  }
   const file = argv._ && argv._[0]
   const multiple = argv._.length > 1
   if (multiple) {
