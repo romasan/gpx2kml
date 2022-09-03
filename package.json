@@ -1,6 +1,6 @@
 {
   "name": "gpx2kml",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Tool for convert gpx into kml",
   "author": "Roman Bauer <rom@nbauer.ru>",
   "main": "./index.js",
