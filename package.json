@@ -27,6 +27,6 @@
     "gpxparser": "^3.0.8",
     "tokml": "^0.4.0",
     "xml-formatter": "^3.2.0",
-    "yargs": "^17.3.1"
+    "yargs": "^18.1.0"
   }
 }
